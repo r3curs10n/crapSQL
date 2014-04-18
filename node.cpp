@@ -4,6 +4,7 @@ node::node(){
 	left = right = NULL;
 	cond = NULL;
 	eor = false;
+	my_record_type_generated = false;
 }
 
 void node::destroy(){

@@ -73,7 +73,7 @@ complex_condition: complex_condition AND complex_condition {
 						condition_and *c = new condition_and();
 						c->left = $1;
 						c->right = $3;
-						$$ = (condition*)c;
+						$$ = c;
 				}
 				| complex_condition OR complex_condition {
 					//TODO
@@ -97,7 +97,7 @@ simple_condition: COLUMN_NAME OPERATOR COLUMN_NAME {
 			c->lhs_column_name = col.second;
 			c->op = string($2);
 			c->value.vInt = $3;
-			$$ = (condition*)c;
+			$$ = c;
 		}
 		| COLUMN_NAME OPERATOR CONST_FLOAT {
 			//TODO

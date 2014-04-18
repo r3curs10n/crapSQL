@@ -5,7 +5,7 @@
 #include "condition.h"
 #include <string>
 
-class condition_op_const {
+class condition_op_const : public condition {
 
 public:
 	string lhs_table_name;

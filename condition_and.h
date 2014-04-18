@@ -3,7 +3,7 @@
 
 #include "condition.h"
 
-class condition_and {
+class condition_and : public condition {
 
 public:
 	condition::condition_type type();

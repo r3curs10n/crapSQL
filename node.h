@@ -10,6 +10,10 @@ enum node_type {
 
 class node {
 
+private:
+	record_type my_record_type;
+	bool my_record_type_generated;
+
 public:
 	int level;
 	node* left, *right;
