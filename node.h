@@ -10,7 +10,7 @@ enum node_type {
 
 class node {
 
-private:
+protected:
 	record_type my_record_type;
 	bool my_record_type_generated;
 
@@ -24,10 +24,14 @@ public:
 	virtual node_type type() = 0;
 
 	virtual record_type getRecordType() = 0;
-	virtual record getNextRecord() = 0;
-//TODO: implement node class and derived classes
+	virtual bool getNextRecord(record&) = 0;
 
+	virtual void refresh() = 0;
+
+	void node_setup();
 	node();
+
+	virtual void run();
 
 	virtual void destroy();
 

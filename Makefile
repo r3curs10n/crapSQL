@@ -4,9 +4,9 @@ norun: lex.yy.c parse.tab.c parse.tab.h myfiles
 	g++ -c condition.o condition_and.o condition_op_const.o node.o
 
 crapsql: lex.yy.c parse.tab.c parse.tab.h myfiles
-	g++ -o crapsql lex.yy.c parse.tab.c condition.o condition_and.o condition_op_const.o node.o
+	g++ -o crapsql lex.yy.c parse.tab.c condition.o condition_and.o condition_op_const.o node.o node_join.o node_table.o
 
-myfiles: condition.o condition_and.o condition_op_const.o node.o
+myfiles: condition.o condition_and.o condition_op_const.o node.o node_table.o node_join.o
 #	g++ -c condition.cpp condition_and.cpp condition_op_const.cpp node.cpp
 
 lex.yy.c: lex.l parse.tab.h
