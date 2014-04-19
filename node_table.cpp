@@ -28,7 +28,7 @@ bool node_table::getNextRecord(record& r){
 
 	/*
 	while (shyamal.getNext(r)){
-		if (!cond || cond.eval(my_record_type, r)) return true;
+		if (cond.eval(my_record_type, r)) return true;
 	}
 
 	return false;

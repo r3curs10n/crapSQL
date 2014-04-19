@@ -8,7 +8,7 @@ class condition {
 public:
 
 enum condition_type{
-	AND, OR, OP_CONST, OP_COLUMN
+	OP_COLUMN, OP_CONST, AND, OR
 };
 
 	virtual condition_type type() = 0;

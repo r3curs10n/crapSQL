@@ -57,7 +57,7 @@ bool node_join::getNextRecord(record& r){
 		}
 	}
 
-	if (!cond || cond->eval(my_record_type, r)){
+	if (cond->eval(my_record_type, r)){
 		return true;
 	} else {
 		return getNextRecord(r);

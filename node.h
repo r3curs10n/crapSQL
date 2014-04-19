@@ -2,7 +2,7 @@
 #define H_NODE
 
 #include "record_type.h"
-#include "condition.h"
+#include "condition_list.h"
 
 enum node_type {
 	NODE_JOIN, NODE_PROJECTION, NODE_CONDITIION, NODE_TABLE
@@ -17,7 +17,7 @@ protected:
 public:
 	int level;
 	node* left, *right;
-	condition* cond;
+	condition_list* cond;
 
 	bool eor;	//end of records
 

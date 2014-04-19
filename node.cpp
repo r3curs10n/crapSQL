@@ -12,6 +12,7 @@ void node::node_setup(){
 }
 
 void node::run(){
+	cond->sort_conditions();
 	if (left) left->run();
 	if (right) right->run();
 }
@@ -19,5 +20,5 @@ void node::run(){
 void node::destroy(){
 	if (left) {left->destroy(); delete left;}
 	if (right) {right->destroy(); delete right;}
-	if (cond) {cond->destroy(); delete cond; }
+	cond->destroy();
 }
