@@ -13,7 +13,7 @@ private:
 
 public:
 	record_type getRecordType();
-	bool getNextRecord(record& r);
+	int getNextRecord(record& r);
 	void refresh();
 
 	void run();

@@ -4,3 +4,5 @@
 #include "condition_op_const.h"
 #include "node_join.h"
 #include "node_table.h"
+#include "condition_or.h"
+#include "condition_op_column.h"

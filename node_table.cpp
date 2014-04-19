@@ -28,23 +28,39 @@ node::node_type node_table::type(){
 }
 
 void node_table::run(){
-	//TODO: pass a condition to shyamal
-	for (list<condition*>::iterator i = cond.conditions.begin(); i!=cond.conditions.end(); i++){
+	/*for (list<condition*>::iterator i = cond.conditions.begin(); i!=cond.conditions.end(); i++){
 		if ((*i)->type() == condition::OP_CONST){
 			condition_op_const* c = dynamic_cast<condition_op_const*>(*i);
 			cout<<c->lhs_table_name<<"."<<c->lhs_column_name<<" "<<c->op<<" "<<c->value.vInt<<endl;
 		}
+	}*/
+
+	//decide which index to use
+	for (list<condition*>::iterator i = cond.conditions.begin(); i != cond.conditions.end(); i++){
+		if ((*i)->type() != condition::OP_CONST) continue;
+		/*
+		if (shyamal.is_column_indexed((*i)->lhs_table_name, (*i)->lhs_column_name)){
+			shyamal.filter( dynamic_cast<condition_op_const*>(*i) );
+			return;
+		}
+		*/
 	}
+
+	//no suitable index found
+	/*
+	shyamal.complete_scan(table_name);
+	*/
 }
 
-bool node_table::getNextRecord(record& r){
+int node_table::getNextRecord(record& r){
 
 	/*
-	while (shyamal.getNext(r)){
-		if (cond.eval(my_record_type, r)) return true;
+	int record_id;
+	while ((record_id = shyamal.getNext(r)) >= 0){
+		if (cond.eval(my_record_type, r)) return record_id;
 	}
 
-	return false;
+	return -1;
 	*/
 
 	throw string("unimplemented getNextRecord in node_table");

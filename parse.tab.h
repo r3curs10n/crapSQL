@@ -60,7 +60,13 @@ extern int yydebug;
      AND = 269,
      OR = 270,
      LP = 271,
-     RP = 272
+     RP = 272,
+     VALUES = 273,
+     INSERT = 274,
+     INTO = 275,
+     UPDATE = 276,
+     SET = 277,
+     DELETE = 278
    };
 #endif
 
@@ -69,7 +75,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2053 of yacc.c  */
-#line 26 "parse.y"
+#line 38 "parse.y"
 
 	int vInt;
 	float vFloat;
@@ -79,7 +85,7 @@ typedef union YYSTYPE
 
 
 /* Line 2053 of yacc.c  */
-#line 83 "parse.tab.h"
+#line 89 "parse.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

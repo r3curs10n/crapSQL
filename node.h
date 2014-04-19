@@ -34,7 +34,7 @@ public:
 	virtual node_type type() = 0;
 
 	virtual record_type getRecordType() = 0;
-	virtual bool getNextRecord(record&) = 0;
+	virtual int getNextRecord(record&) = 0;
 
 	virtual void refresh() = 0;
 

@@ -40,15 +40,21 @@ int CONST_STRING=8;
 "SELECT" {return SELECT;}
 "FROM" {return FROM;}
 "WHERE" {return WHERE;}
+"INSERT" {return INSERT;}
+"INTO" {return INTO;}
+"VALUES" {return VALUES;}
 "AND" {return AND;}
 "OR" {return OR;}
+"UPDATE" {return UPDATE;}
+"SET" {return SET;}
+"DELETE" {return DELETE;}
 "(" {return LP;}
 ")" {return RP;}
 [\<\>\=] {strncpy(yylval.vString, yytext, 100); return OPERATOR;}
 ";" {return SEMI;}
 [a-z]+ {strncpy(yylval.vString, yytext, 100); return TABLE_NAME;}
 [a-z]+\.[a-z]+ {strncpy(yylval.vString, yytext, 100); return COLUMN_NAME;}
-\'[^\']+\' {strncpy(yylval.vString, yytext, 100); return CONST_STRING;}
+\'[^\']+\' {strncpy(yylval.vString, yytext+1, 100); yylval.vString[strlen(yylval.vString)-1]=0; return CONST_STRING;}
 \, {return COMMA;}
 
 %%

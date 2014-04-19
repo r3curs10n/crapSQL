@@ -26,39 +26,43 @@ record_type node_join::getRecordType(){
 	r = right->getRecordType();
 
 	join_record_types(l, r, my_record_type);
+	my_record_type_generated=true;
 
 	return my_record_type;
 
 }
 
-bool node_join::getNextRecord(record& r){
+
+
+int node_join::getNextRecord(record& r){
 
 	assert(left && right);
 
-	bool record_available = true;
+	int record_id;
 
-	record x, y;
+	record y;
 
 	if (!lhs_cur_record_present){
-		record_available = left->getNextRecord(x);
-		if (!record_available) return false;
+		record_id = left->getNextRecord(lhs_cur_record);
+		if (record_id < 0) return -1;
+		lhs_cur_record_present=true;
 	}
 
-	if (right->getNextRecord(y)){
-		join_records(x, y, r);
+	if (right->getNextRecord(y) >= 0){
+		join_records(lhs_cur_record, y, r);
 	} else {
-		record_available = left->getNextRecord(x);
-		if (!record_available) return false;
+		record_id = left->getNextRecord(lhs_cur_record);
+		if (record_id < 0) return -1;
 		right->refresh();
-		if (right->getNextRecord(y)){
-			join_records(x, y, r);
+		if (right->getNextRecord(y) >= 0){
+			join_records(lhs_cur_record, y, r);
 		} else {
-			return false;
+			return -1;
 		}
 	}
 
-	if (cond.eval(my_record_type, r)){
-		return true;
+	if (cond.eval(getRecordType(), r)){
+		return 1;
 	} else {
 		return getNextRecord(r);
 	}

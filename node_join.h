@@ -10,7 +10,7 @@ private:
 	bool lhs_cur_record_present;
 
 public:
-	bool getNextRecord(record& r);
+	int getNextRecord(record& r);
 	record_type getRecordType();
 	void refresh();
 
