@@ -24,7 +24,7 @@ void node_table::refresh(){
 }
 
 node::node_type node_table::type(){
-	node::NODE_TABLE;
+	return node::NODE_TABLE;
 }
 
 void node_table::run(){

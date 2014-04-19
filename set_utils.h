@@ -13,4 +13,10 @@ inline bool set_contains(set<string>& large, set<string>& small){
 	return true;
 }
 
+inline void merge_sets(set<string>& dest, set<string>& src){
+	for (set<string>::iterator i = src.begin(); i != src.end(); i++){
+		dest.insert(*i);
+	}
+}
+
 #endif

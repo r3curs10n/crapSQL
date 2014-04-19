@@ -69,7 +69,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2053 of yacc.c  */
-#line 25 "parse.y"
+#line 26 "parse.y"
 
 	int vInt;
 	float vFloat;

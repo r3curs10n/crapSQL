@@ -68,5 +68,5 @@ bool node_join::getNextRecord(record& r){
 }
 
 node::node_type node_join::type(){
-	node::NODE_JOIN;
+	return node::NODE_JOIN;
 }

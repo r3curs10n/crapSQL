@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include "includes.h"
 #include "parse_utils.h"
+#include "set_utils.h"
 using namespace std;
 
 vector<pair<string, string> > columns;	//table.column pairs
@@ -62,14 +63,19 @@ column_list: column_list COMMA COLUMN_NAME {
 table_list: table_list COMMA TABLE_NAME {
 				tables.push_back(string($3));
 				node_join* nj = new node_join();
+				//cout<<"joined"<<endl;
 				node_table* nt = new node_table($3);
+				nt->table_list.insert(string($3));
 				nj->left = $1;
 				nj->right = nt;
+				merge_sets(nj->table_list, nt->table_list);
 				$$ = nj;
+				//cout<<">"<<$$->type()<<endl;
 			}
 			| TABLE_NAME {
 				tables.push_back(string($1));
 				node_table* nt = new node_table($1);
+				nt->table_list.insert(string($1));
 				$$ = nt;
 			}
 ;
@@ -84,6 +90,8 @@ complex_condition: complex_condition AND complex_condition {
 						condition_and *c = new condition_and();
 						c->left = $1;
 						c->right = $3;
+						merge_sets(c->table_list, $1->table_list);
+						merge_sets(c->table_list, $3->table_list);
 						$$ = c;
 						//cout<<"kjrljrel"<<endl;
 				}
@@ -109,6 +117,7 @@ simple_condition: COLUMN_NAME OPERATOR COLUMN_NAME {
 			c->lhs_column_name = col.second;
 			c->op = string($2);
 			c->value.vInt = $3;
+			c->table_list.insert(col.first);
 			$$ = c;
 		}
 		| COLUMN_NAME OPERATOR CONST_FLOAT {
@@ -132,10 +141,14 @@ int main(){
 		yyparse();
 	} while (!feof(stdin));
 
+	
+
 	if (where_clause){
 		select_root->cond.conditions.push_back(where_clause);
 		select_root->unroll_conditions();
+
 		select_root->propogate_conditions();
+		cout<<"parsing done"<<endl;
 		select_root->run();
 	}
 
