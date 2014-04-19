@@ -18,6 +18,8 @@ public:
 
 	void run();
 
+	node::node_type type ();
+
 	node_table(string tabname);
 
 };

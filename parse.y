@@ -13,6 +13,7 @@ vector<pair<string, string> > columns;	//table.column pairs
 vector<string> tables;	//list of tables
 
 condition* where_clause;
+node* select_root;
 
 extern int yylex();
 extern int yyparse();
@@ -36,6 +37,7 @@ void yyerror(const char* s);
 %left AND OR
 
 %type<vCondition> simple_condition complex_condition
+%type<vNode> table_list
 
 %start sql
 
@@ -44,7 +46,9 @@ void yyerror(const char* s);
 sql: select
 ;
 
-select: SELECT column_list FROM table_list optional_where SEMI
+select: SELECT column_list FROM table_list optional_where SEMI {
+			select_root = $4;
+		}
 ;
 
 column_list: column_list COMMA COLUMN_NAME {
@@ -57,9 +61,16 @@ column_list: column_list COMMA COLUMN_NAME {
 
 table_list: table_list COMMA TABLE_NAME {
 				tables.push_back(string($3));
+				node_join* nj = new node_join();
+				node_table* nt = new node_table($3);
+				nj->left = $1;
+				nj->right = nt;
+				$$ = nj;
 			}
 			| TABLE_NAME {
 				tables.push_back(string($1));
+				node_table* nt = new node_table($1);
+				$$ = nt;
 			}
 ;
 
@@ -112,9 +123,18 @@ simple_condition: COLUMN_NAME OPERATOR COLUMN_NAME {
 %%
 
 int main(){
+
+	select_root = NULL;
+	where_clause = NULL;
+
 	do {
 		yyparse();
 	} while (!feof(stdin));
+
+	if (where_clause){
+		select_root->cond.conditions.push_back(where_clause);
+	}
+
 	for (vector<pair<string,string> >::iterator i = columns.begin(); i!=columns.end(); i++){
 		cout<<i->first<<" "<<i->second<<endl;
 	}

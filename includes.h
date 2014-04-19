@@ -2,3 +2,5 @@
 #include "condition.h"
 #include "condition_and.h"
 #include "condition_op_const.h"
+#include "node_join.h"
+#include "node_table.h"

@@ -6,7 +6,7 @@ node_table::node_table(string tabname){
 	my_record_type_generated = false;
 
 	left = right = NULL;
-	cond = NULL;
+	//cond = NULL;
 	level = 0;
 	/*
 	shyamal.open(table_name);
@@ -18,6 +18,10 @@ node_table::node_table(string tabname){
 void node_table::refresh(){
 	// shyamal.refresh()
 	throw string("unimplemented refresh in node_table");
+}
+
+node::node_type node_table::type(){
+	node::NODE_TABLE;
 }
 
 void node_table::run(){

@@ -57,7 +57,7 @@ bool node_join::getNextRecord(record& r){
 		}
 	}
 
-	if (cond->eval(my_record_type, r)){
+	if (cond.eval(my_record_type, r)){
 		return true;
 	} else {
 		return getNextRecord(r);
@@ -65,4 +65,8 @@ bool node_join::getNextRecord(record& r){
 
 	//TODO: eliminate tail recursion
 
+}
+
+node::node_type node_join::type(){
+	node::NODE_JOIN;
 }

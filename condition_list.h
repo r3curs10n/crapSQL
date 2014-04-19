@@ -1,7 +1,7 @@
 #ifndef H_CONDITION_LIST
 #define H_CONDITION_LIST
 
-#include <vector>
+#include <list>
 #include <algorithm>
 #include "condition.h"
 using namespace std;
@@ -12,7 +12,7 @@ private:
 	static bool condition_comp(condition* l, condition* r);
 
 public:
-	vector<condition*> conditions;
+	list<condition*> conditions;
 	bool eval(record_type& rt, record& r);
 	void sort_conditions();
 

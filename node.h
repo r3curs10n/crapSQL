@@ -1,14 +1,20 @@
 #ifndef H_NODE
 #define H_NODE
 
+#include <set>
+using namespace std;
+
 #include "record_type.h"
 #include "condition_list.h"
 
-enum node_type {
-	NODE_JOIN, NODE_PROJECTION, NODE_CONDITIION, NODE_TABLE
-};
+
 
 class node {
+
+public:
+	enum node_type {
+		NODE_JOIN, NODE_PROJECTION, NODE_CONDITIION, NODE_TABLE
+	};
 
 protected:
 	record_type my_record_type;
@@ -17,9 +23,14 @@ protected:
 public:
 	int level;
 	node* left, *right;
-	condition_list* cond;
+	condition_list cond;
+
+	set<string> table_list;
 
 	bool eor;	//end of records
+
+	void unroll_conditions();
+	void propogate_conditions();
 
 	virtual node_type type() = 0;
 

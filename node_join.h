@@ -14,6 +14,8 @@ public:
 	record_type getRecordType();
 	void refresh();
 
+	node::node_type type();
+
 	node_join();
 };
 
