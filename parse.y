@@ -85,6 +85,7 @@ complex_condition: complex_condition AND complex_condition {
 						c->left = $1;
 						c->right = $3;
 						$$ = c;
+						//cout<<"kjrljrel"<<endl;
 				}
 				| complex_condition OR complex_condition {
 					//TODO
@@ -133,6 +134,9 @@ int main(){
 
 	if (where_clause){
 		select_root->cond.conditions.push_back(where_clause);
+		select_root->unroll_conditions();
+		select_root->propogate_conditions();
+		select_root->run();
 	}
 
 	for (vector<pair<string,string> >::iterator i = columns.begin(); i!=columns.end(); i++){
@@ -143,4 +147,5 @@ int main(){
 
 void yyerror(const char* s){
 	//nothing
+	cout<<string(s)<< " ERROR"<<endl;
 }

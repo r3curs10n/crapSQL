@@ -1,6 +1,7 @@
 #include "node.h"
 #include "set_utils.h"
 #include "condition_and.h"
+#include "includes.h"
 
 node::node(){
 	node_setup();
@@ -40,8 +41,8 @@ void node::propogate_conditions(){
 	}
 
 	for (list<condition*>::iterator i = cond.conditions.begin(); i != cond.conditions.end(); i++){
-		if ((*i)->type() == condition::AND){
-			condition_and* c = dynamic_cast<condition_and*>(*i);
+		if ((*i)->type() != condition::OR){
+			//condition_and* c = dynamic_cast<condition_and*>(*i);
 			if (left && set_contains(left->table_list, (*i)->table_list)){
 				left->cond.conditions.push_back((*i));
 				cond.conditions.erase(i);

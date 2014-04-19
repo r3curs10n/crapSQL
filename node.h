@@ -8,7 +8,6 @@ using namespace std;
 #include "condition_list.h"
 
 
-
 class node {
 
 public:

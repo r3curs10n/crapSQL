@@ -2,6 +2,7 @@
 
 #define AS_INT(x) (*(int*)(&(x)))
 
+
 condition::condition_type condition_op_const::type(){
 	return condition::OP_CONST;
 }

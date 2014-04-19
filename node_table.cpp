@@ -1,4 +1,7 @@
+#include <iostream>
+using namespace std;
 #include "node_table.h"
+#include "includes.h"
 
 node_table::node_table(string tabname){
 	table_name = tabname;
@@ -26,6 +29,12 @@ node::node_type node_table::type(){
 
 void node_table::run(){
 	//TODO: pass a condition to shyamal
+	for (list<condition*>::iterator i = cond.conditions.begin(); i!=cond.conditions.end(); i++){
+		if ((*i)->type() == condition::OP_CONST){
+			condition_op_const* c = dynamic_cast<condition_op_const*>(*i);
+			cout<<c->lhs_table_name<<"."<<c->lhs_column_name<<" "<<c->op<<" "<<c->value.vInt<<endl;
+		}
+	}
 }
 
 bool node_table::getNextRecord(record& r){
